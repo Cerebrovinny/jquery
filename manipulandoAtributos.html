@@ -23,6 +23,15 @@
     <h1>Manipulando Atributos</h1>
     <div wm-relogio='1000'></div>
     <script>
-        // ...
+        function Timer(element) {
+            const rightTime = $('<p>')
+            const lessButton = $('<button>').html('-')
+            const moreButton = $('<button>').html('+')
+
+            const $element = $(element)
+            $element.append(rightTime, lessButton, moreButton)
+        }
+
+        $('[wm-relogio]').each((i, e) => new Timer(e))
     </script>
 </body>
