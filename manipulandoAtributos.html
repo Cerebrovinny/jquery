@@ -30,6 +30,26 @@
 
             const $element = $(element)
             $element.append(rightTime, lessButton, moreButton)
+
+            const getActualInterval = () => parseInt($element.attr('wm-relogio'))
+
+            let temporizer = null        
+            const start = () => {
+                if(temporizer) clearInterval(temporizer)
+                temporizer = setInterval(() => {
+                    rightTime.html(new Date().toLocaleString('pt-BR'))
+                }, getActualInterval())
+            }
+
+            const changeInterval = delta => {
+                const novo = Math.max(getActualInterval() + delta, 1000)
+                $element.attr('wm-relogio', novo)
+                start()
+            }
+
+            lessButton.click(e => changeInterval(1000))
+            moreButton.click(e => changeInterval(-1000))
+            start()
         }
 
         $('[wm-relogio]').each((i, e) => new Timer(e))
