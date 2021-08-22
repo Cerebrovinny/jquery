@@ -22,6 +22,7 @@
 <body class='conteudo exercicio'>
     <h1>Manipulando Atributos</h1>
     <div wm-relogio='1000'></div>
+    <div wm-relogio='3000'></div>
     <script>
         function Timer(element) {
             const rightTime = $('<p>')
@@ -53,5 +54,7 @@
         }
 
         $('[wm-relogio]').each((i, e) => new Timer(e))
+        $('[wm-relogio]').attr({ test: 1, novo: true })
+        $('[wm-relogio]').removeAttr('test').removeAttr('novo')
     </script>
 </body>
