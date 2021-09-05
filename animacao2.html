@@ -28,6 +28,60 @@
     <div>Animar!</div>
 
     <script>
-        // ...
+        // function changeWidth(value, duration, callback) {
+        //     $('div').animate({ width: `+=${value}` }, duration, callback)
+        // }
+
+        // function moveDiagonal(value, duration, callback) {
+        //     $('div').animate({ top: `+=${value}`, left: `+=${value}`}
+        //     , duration, callback)
+        // }
+
+        // function spin(value, duration, callback) {
+        //     $('div').animate({ transform: `+=${value}` }, {
+        //         step: function (value) {
+        //             $(this).css('transform', `rotate(${value}deg)`)
+        //         },
+        //         duration: duration
+        //     }, 'linear', callback)
+        // }
+
+        // changeWidth(300, 100, () => {
+        //     changeWidth(-300, 'slow', () => {
+        //         moveDiagonal(300, 600, () => {
+        //             spin(3300, 3000)
+        //         });
+        //     });
+        // })
+
+        function changeWidth(value, duration) {
+            return new Promise(function (resolve, reject) {
+                $('div').animate({ width: `+=${value}` }, duration)
+                resolve();
+            });
+        };
+
+        function moveDiagonal(value, duration) {
+            return new Promise(function (resolve, reject) {
+                $('div').animate({ top: `+=${value}`, left: `+=${value}`}
+                , duration)
+                resolve();
+            });
+        };
+
+        function spin(value, duration) {
+            return new Promise(function (resolve, reject) {
+                $('div').animate({ transform: `+=${value}` }, {
+                    step: function (value) {
+                        $(this).css('transform', `rotate(${value}deg)`)
+                    },
+                    duration: duration
+                }, 'linear')
+                resolve();
+            });
+        };
+
+        changeWidth(300, 100).then(changeWidth(-300, 'slow'))
+        .then(moveDiagonal(300, 600)).then(spin(3300, 3000))
     </script>
 </body>
