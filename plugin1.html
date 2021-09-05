@@ -22,6 +22,26 @@
     </div>
 
     <script>
-        // ...
+        // const $ = { name: 'Not jQuery' }
+
+        (function ($) {
+            $.fn.interpret = function () {
+                const removeKeys = s => s.substring(2, s.length -2)
+                const content = $(this).html()
+                const expressionsWithKeys = content.match(/\{\{.+\}\}/g)
+                const expressions = expressionsWithKeys.map(removeKeys)
+                const results = expressions.map(e => eval(e))
+
+                let finalContent = content
+                for (let i = 0; i < expressionsWithKeys.length; i++) {
+                    finalContent = finalContent.replace(
+                        expressionsWithKeys[i], results[i]
+                    )
+                }
+                $(this).html(finalContent)
+            }
+        })(jQuery)
+
+        $('div').interpret()
     </script>
 </body>
